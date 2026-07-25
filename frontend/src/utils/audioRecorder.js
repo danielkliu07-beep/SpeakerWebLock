@@ -1,57 +1,60 @@
-export function initializeAudioRecorder(audio, startBtn, stopBtn, audioPlayback) {
+export function initializeAudioRecorder(record, stop, onClipCreated) {
 
-    const constraints = {
+    constraints = {
         audio: true
+    };
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+            .getUserMedia(constraints)
+            .then((stream) => {
+                const mediaRecorder = new MediaRecorder(stream);
+                
+                record.onclick = () => {
+                    mediaRecorder.start()
+                    record.computedStyleMap.background = "red"
+                    record.computedStyleMap.color = "black";
+                };
+
+                let chunks = [];
+
+                mediaRecorder.ondataavailable = (e) => {
+                    chunks.push(e.data);
+                };
+
+                stop.onclick = () => {
+                    mediaRecorder.stop();
+                    record.computedStyleMap.background = "";
+                    record.computedStyleMap.color = "";
+                };
+
+                mediaRecorder.onstop = (e) => {
+                    
+                    const blob = new Blob(chunks, {type: "audio/ogg; codecs=opus"});
+                    chunks = [];
+                    const audioURL = window.URL.createObjectURL(blob);
+                    
+                    onClipCreated({
+                        name: prompt("Enter a name") || "Untitled",
+                        url: audioURL
+                    });
+
+
+
+                    deleteButton.onclick = (e) => {
+                        let eventTarget = e.target;
+                        eventTarget.parentNode.parentNode.removeChild(eventTarget.parentNode);
+                    };
+                };
+
+            })
+        .catch(function (err) {
+            console.log(err.name, err.message)
+        });
+    } else {
+        console.log("getUserMedia not supported on your browser!");
     }
 
-    navigator.mediaDevices
-        .getUserMedia(constraints)
-        .then(function (mediaStreamObj) {
-
-            if ("srcObject" in audio) {
-                audio.srcObject = mediaStreamObj;
-            }
-            else {
-                audio.src = window.URL.createObjectURL(mediaStreamObj);
-            }
-
-            audio.onloadedmetadata = function (ev) {
-                audio.play();
-            };
-
-            let mediaRecorder = new MediaRecorder(mediaStreamObj);
-
-            startBtn.addEventListener('click', function (ev) {
-                mediaRecorder.start()
-            })
-
-            stopBtn.addEventListener('click', function (ev) {
-                mediaRecorder.stop()
-            });
-
-            mediaRecorder.ondataavailable = function (ev) {
-                dataArray.push(ev.data);
-            }
-
-            let dataArray = [];
-
-            mediaRecorder.onstop = function (ev) {
-                let audioData = new Blob(dataArray, {'type': 'audio/webm'});
-                
-                dataArray = [];
-
-                let audioSrc = window.URL.createObjectURL(audioData);
-
-                audioPlayback.src = audioSrc;
-            
-            }
-
-        
-        })
-
-        .catch(function (err) {
-            console.log(err.name, err.message);
-        });
-
+    
 
 }

@@ -2,17 +2,17 @@
 
     import {onMounted, ref} from "vue"
 
-    const audio = ref(null);
     const startBtn = ref(null);
     const stopBtn = ref(null);
-    const audioPlayback = ref(null);
+    const soundClips = ref([]);
 
     onMounted(() => {
         initializeAudioRecorder(
-            audio.value,
             startBtn.value,
             stopBtn.value,
-            audioPlayback.value
+            (clip) => {
+                soundClips.value.push(clip);
+            }
         );
     });
     
@@ -24,13 +24,24 @@
     
     <recorder>
 
-        <audio ref = "audio"></audio>
+        <button ref = "startBtn">START RECORDING</button>
+        <button ref = "stopBtn">STOP RECORDING</button>
 
-        <button ref = "startBtn"></button>
-        <button ref = "stopBtn"></button>
+        <section class = "sound-clips">
+            <article
+                v-for="(clip, index) in soundClips"
+                v-bind:key = "index"
+                class = "clip"
+            >
+                <audio v-bind:src="clip.url" controls></audio>
 
-        <audio ref = "audioPlayback"></audio>
+                <p>{{ clip.name }}</p>
 
+                <button @click = "soundClips.splice(index, 1)">Delete</button>
+
+            </article>
+        </section>
+        
 
     </recorder>
 
