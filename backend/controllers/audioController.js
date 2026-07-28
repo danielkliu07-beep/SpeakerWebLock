@@ -27,5 +27,5 @@ const deleteAudio = async (req, res) => {
 
 }
 
-export {getAudios, getAudio, addAudios, updateAudios, updateAudio, deleteAudios, deleteAudio};
+export { getAudios, getAudio, addAudios, updateAudios, updateAudio, deleteAudios, deleteAudio };
 

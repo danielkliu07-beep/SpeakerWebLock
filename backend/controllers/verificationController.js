@@ -1,3 +1,8 @@
-export const verificationController = (req, res) => {
-    res.json({data: 'verification'})
+
+const verifySpeaker = async (req, res) => {
+
 }
+
+
+export { verifySpeaker };
+
