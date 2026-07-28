@@ -1,15 +1,22 @@
 import express from 'express'
-import { apiRouter } from 'backend/routes/apiRoutes.js'
+import { audioRouter } from 'backend/routes/audioRoutes.js'
+import { verificationRouter } from 'backend/routes/verificationRoutes.js'
 
+import cors from 'cors'
+
+const PORT = 8000
 
 const app = express()
 
-app.use('/api', apiRouter)
+app.use(cors())
+
+app.use('/api', audioRouter)
+app.use('/api', verificationRouter)
 
 app.use((req, res) => {
     res.status(404).json({message: 'Endpoint not found'})
 })
 
 
-app.listen(8000, () => console.log('listening at 8000'))
+app.listen(PORT, () => console.log('listening at 8000'))
 
