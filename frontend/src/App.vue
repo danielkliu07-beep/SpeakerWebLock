@@ -2,6 +2,8 @@
 
     import Recorder from '@/components/Recording.vue'
 
+    const globalAudioList = ref([])
+
 </script>
 
 <template>

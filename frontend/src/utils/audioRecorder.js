@@ -1,6 +1,6 @@
 export function initializeAudioRecorder(record, stop, onClipCreated) {
 
-    constraints = {
+    const constraints = {
         audio: true
     };
 
@@ -11,9 +11,11 @@ export function initializeAudioRecorder(record, stop, onClipCreated) {
                 const mediaRecorder = new MediaRecorder(stream);
                 
                 record.onclick = () => {
-                    mediaRecorder.start()
-                    record.computedStyleMap.background = "red"
-                    record.computedStyleMap.color = "black";
+                    if (mediaRecorder.state === "inactive") {
+                        mediaRecorder.start()
+                        record.style.background = "red"
+                        record.style.color = "black";
+                    }
                 };
 
                 let chunks = [];
@@ -23,9 +25,11 @@ export function initializeAudioRecorder(record, stop, onClipCreated) {
                 };
 
                 stop.onclick = () => {
-                    mediaRecorder.stop();
-                    record.computedStyleMap.background = "";
-                    record.computedStyleMap.color = "";
+                    if (mediaRecorder.state === "recording") {
+                        mediaRecorder.stop();
+                        record.style.background = "";
+                        record.style.color = "";
+                    }
                 };
 
                 mediaRecorder.onstop = (e) => {
@@ -35,16 +39,10 @@ export function initializeAudioRecorder(record, stop, onClipCreated) {
                     const audioURL = window.URL.createObjectURL(blob);
                     
                     onClipCreated({
-                        name: prompt("Enter a name") || "Untitled",
                         url: audioURL
                     });
 
 
-
-                    deleteButton.onclick = (e) => {
-                        let eventTarget = e.target;
-                        eventTarget.parentNode.parentNode.removeChild(eventTarget.parentNode);
-                    };
                 };
 
             })
