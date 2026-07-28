@@ -1,13 +1,15 @@
 import express from 'express'
+import { apiRouter } from 'backend/routes/apiRoutes.js'
+
 
 const app = express()
 
-const apiRouter = express.Router()
-
-
-//You don't need to have /api/audio because app.use('/api', apiRouter) specified it
-apiRouter.get('/audio', audioController)
-apiRouter.get('/services', verificationController)
-
 app.use('/api', apiRouter)
+
+app.use((req, res) => {
+    res.status(404).json({message: 'Endpoint not found'})
+})
+
+
+app.listen(8000, () => console.log('listening at 8000'))
 
