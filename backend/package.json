@@ -1,0 +1,15 @@
+{
+  "name": "speaker_web_lock",
+  "version": "1.0.0",
+  "description": "The backend for my speaker web lock platform",
+  "license": "ISC",
+  "author": "Daniel Konghuai Liu",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
