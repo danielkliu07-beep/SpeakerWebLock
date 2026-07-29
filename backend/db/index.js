@@ -1,4 +1,4 @@
-import { Pool, Client } from 'pg'
+import { Pool } from 'pg'
 import { config } from 'backend/db/config.js'
 
 const connection_information = {

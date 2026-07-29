@@ -5,6 +5,8 @@ import { urlRouter } from 'backend/routes/urlRoutes.js'
 import { userRouter } from 'backend/routes/userRoutes.js'
 import { websiteRouter } from 'backend/routes/websiteRoutes.js'
 
+import { initializeDatabase } from './db/init'
+
 import cors from 'cors'
 
 const PORT = 8000
@@ -22,6 +24,10 @@ app.use('/api', websiteRouter)
 app.use((req, res) => {
     res.status(404).json({message: 'Endpoint not found'})
 })
+
+async function start() {
+    
+}
 
 app.listen(PORT, () => console.log('listening at 8000'))
 
