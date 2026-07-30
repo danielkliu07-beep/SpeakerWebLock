@@ -17,10 +17,10 @@ export async function initializeDatabase() {
     `);
 
     await pool.query(`
-        CREATE TABLE IF NOT EXISTS user (
+        CREATE TABLE IF NOT EXISTS users (
             UserID SERIAL PRIMARY KEY,
-            UserName TEXT NOT NULL 
-            UserPassword TEXT NOT NULL
+            UserName TEXT NOT NULL,
+            UserPassword TEXT NOT NULL,
             UserEmail TEXT NOT NULL
         );    
     `);

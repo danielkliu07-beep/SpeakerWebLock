@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { getAudios, getAudio, addAudios, updateAudios, updateAudio, deleteAudios, deleteAudio } from 'backend/controllers/audioController.js'
+import { getAudios, getAudio, addAudios, updateAudios, updateAudio, deleteAudios, deleteAudio, verifyAudio } from 'backend/controllers/audioController.js'
 
 export const audioRouter = express.Router()
 
@@ -10,3 +10,4 @@ audioRouter.get('/audio/:id', getAudio)
 audioRouter.post('/audio', addAudios)
 audioRouter.delete('/audio', deleteAudios)
 audioRouter.delete('/audio/:id', deleteAudio)
+audioRouter.get('/audio/verify', verifyAudio)

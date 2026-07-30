@@ -9,6 +9,10 @@ const getUrls = async (req, res) => {
 
         const websites = await pool.query(query)
 
+        if (websites.rows.length === 0) {
+            return res.status(404).json({error: "Website not found"});
+        }
+
         res.status(200).json(websites.rows);
     } catch (err) {
         console.error(err);
@@ -25,11 +29,12 @@ const addUrls = async (req, res) => {
     try {
     
         const query = {
-            text: 'INSERT INTO website ($1, $2)',
-            values: [req.params.WebsiteID, req.params.WebsiteURL],
+            text: 'INSERT INTO website (WebsiteURL) VALUES ($1) RETURNING *',
+            values: [req.body.WebsiteURL], 
         }
 
         const websites = await pool.query(query)
+        
 
         res.status(200).json(websites.rows[0])
     
@@ -74,7 +79,7 @@ const deleteUrl = async (req, res) => {
 
         const query = {
             text: 'DELETE FROM website WHERE websiteID = $1',
-            values: [req.params.WebsiteID]
+            values: [req.params.id]
         }
 
         const websites = await pool.query(query)

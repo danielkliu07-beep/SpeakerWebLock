@@ -10,6 +10,10 @@ const getAudios = async (req, res) => {
 
         const audios = await pool.query(query)
 
+        if (audios.rows.length === 0) {
+            return res.status(404).json({error: "Audio not found"});
+        }
+
         res.status(200).json(audios.rows);
     } catch (err) {
         console.error(err);
@@ -28,10 +32,14 @@ const getAudio = async (req, res) => {
 
         const query = {
             text: 'SELECT * FROM audio WHERE AudioID = $1',
-            values: [req.params.AudioID],
+            values: [req.params.id],
         }
 
         const audios = await pool.query(query)
+
+        if (audios.rows.length === 0) {
+            return res.status(404).json({error: "Audio not found"});
+        }
 
         res.status(200).json(audios.rows[0])
 
@@ -51,8 +59,8 @@ const addAudios = async (req, res) => {
     try {
 
         const query = {
-            text: 'INSERT INTO audio ($1, $2)',
-            values: [req.params.AudioID, req.params.AudioURL],
+            text: 'INSERT INTO audio (AudioURL) VALUES ($1) RETURNING *',
+            values: [req.body.AudioURL],
         }
 
         const audios = await pool.query(query)
@@ -99,7 +107,7 @@ const deleteAudio = async (req, res) => {
 
         const query = {
             text: 'DELETE FROM audio WHERE AudioID = $1',
-            values: [req.params.AudioID]
+            values: [req.params.id]
         }
 
         const audios = await pool.query(query)
@@ -118,5 +126,9 @@ const deleteAudio = async (req, res) => {
 
 }
 
-export { getAudios, getAudio, addAudios, updateAudios, updateAudio, deleteAudios, deleteAudio };
+const verifyAudio = async (req, res) => {
+
+}
+
+export { getAudios, getAudio, addAudios, updateAudios, updateAudio, deleteAudios, deleteAudio, verifyAudio };
 
