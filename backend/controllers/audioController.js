@@ -28,12 +28,12 @@ const getAudio = async (req, res) => {
 
         const query = {
             text: 'SELECT * FROM audio WHERE AudioID = $1',
-            values: [req.params.id],
+            values: [req.params.AudioID],
         }
 
-        const audio = await pool.query(query)
+        const audios = await pool.query(query)
 
-        res.status(200).json(audio.rows[0])
+        res.status(200).json(audios.rows[0])
 
     } catch (err) {
         console.error(err);
@@ -53,12 +53,12 @@ const addAudios = async (req, res) => {
 
         const query = {
             text: 'INSERT INTO audio ($1, $2)',
-            values: [req.params.id, req.params.url],
+            values: [req.params.AudioID, req.params.AudioURL],
         }
 
-        const audio = await pool.query(query)
+        const audios = await pool.query(query)
 
-        res.status(200).json(audio.rows[0])
+        res.status(200).json(audios.rows[0])
 
     } catch (err) {
         console.error(err);
@@ -96,16 +96,16 @@ const deleteAudios = async (req, res) => {
 }
 
 const deleteAudio = async (req, res) => {
-        try {
+    try {
 
         const query = {
             text: 'DELETE FROM audio WHERE AudioID = $1',
-            values: [req.params.id]
+            values: [req.params.AudioID]
         }
 
-        const audio = await pool.query(query)
+        const audios = await pool.query(query)
 
-        res.status(200).json(audio.rows[0])
+        res.status(200).json(audios.rows[0])
 
     } catch (err) {
         console.error(err);
