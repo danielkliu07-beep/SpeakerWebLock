@@ -70,6 +70,27 @@ const createUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
 
+    try {
+
+        const query = {
+            text: 'DELETE FROM user WHERE userID = $1',
+            values: [req.params.UserID]
+        }
+
+        const users = await pool.query(query)
+
+        res.status(200).json(users.rows[0])
+
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            error: "Failed to delete user",
+            error_message: err.message,
+        })
+
+    }
+
 }
 
 export { getUsers, getUser, createUser, deleteUser };

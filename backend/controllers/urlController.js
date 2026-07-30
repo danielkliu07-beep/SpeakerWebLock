@@ -93,5 +93,34 @@ const deleteUrl = async (req, res) => {
 
 }
 
-export { getUrls, addUrls, deleteUrls, deleteUrl };
+const checkUrl = async (req, res) => {
+
+    try {
+
+        const query = {
+            text: 'SELECT * FROM website'
+        }
+
+        const websites = await pool.query(query)
+
+        for (const website of websites.rows) {
+            if (req.params.WebsiteURL === website.WebsiteURL) {
+                return res.status(200).json({"check": true});
+            }
+        }
+
+        res.status(200).json({"check": false});
+
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            error: "Failed to check if the website url is in the database",
+            error_message: err.message,
+        })
+    }
+
+}
+
+export { getUrls, addUrls, deleteUrls, deleteUrl, checkUrl };
 
