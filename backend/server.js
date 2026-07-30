@@ -26,8 +26,16 @@ app.use((req, res) => {
 })
 
 async function start() {
-    
+    try {
+        await initializeDatabase();
+
+        app.listen(PORT, () => console.log('listening at 8000'))
+
+    } catch (err) {
+        console.error(err);
+    }
 }
 
-app.listen(PORT, () => console.log('listening at 8000'))
+start();
+
 

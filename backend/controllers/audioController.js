@@ -1,29 +1,121 @@
+import { pool } from "../db"
+
 
 const getAudios = async (req, res) => {
+    try {
 
+        const query = {
+            text: 'SELECT * FROM audio'
+        }
+
+        const audios = await pool.query(query)
+
+        res.status(200).json(audios.rows);
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            error: "Failed to get audios",
+            error_message: err.message,
+        })
+    }
 }
 
+
+
 const getAudio = async (req, res) => {
-    
+    try {
+
+        const query = {
+            text: 'SELECT * FROM audio WHERE AudioID = $1',
+            values: [req.params.id],
+        }
+
+        const audio = await pool.query(query)
+
+        res.status(200).json(audio.rows[0])
+
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            error: "Failed to get audio",
+            error_message: err.message,
+        })
+
+    }
+
+
 }
 
 const addAudios = async (req, res) => {
+    try {
+
+        const query = {
+            text: 'INSERT INTO audio ($1, $2)',
+            values: [req.params.id, req.params.url],
+        }
+
+        const audio = await pool.query(query)
+
+        res.status(200).json(audio.rows[0])
+
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            error: "Failed to add audios",
+            error_message: err.message,
+        })
+
+    }
     
 }
 
-const updateAudios = async (req, res) => {
-
-}
-
-const updateAudio = async (req, res) => {
-
-}
 
 const deleteAudios = async (req, res) => {
+    try {
 
+        const query = {
+            text: 'DELETE FROM audio',
+        }
+
+        const audios = await pool.query(query)
+
+        res.status(200).json(audios.rows)
+
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            error: "Failed to delete audios",
+            error_message: err.message,
+        })
+
+    }
 }
 
 const deleteAudio = async (req, res) => {
+        try {
+
+        const query = {
+            text: 'DELETE FROM audio WHERE AudioID = $1',
+            values: [req.params.id]
+        }
+
+        const audio = await pool.query(query)
+
+        res.status(200).json(audio.rows[0])
+
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            error: "Failed to delete audio",
+            error_message: err.message,
+        })
+
+    }
 
 }
 
