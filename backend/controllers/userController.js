@@ -4,7 +4,7 @@ const getUsers = async (req, res) => {
     try {
 
         const query = {
-            text: 'SELECT UserID, UserName, UserEmail FROM users'
+            text: 'SELECT user_id, user_name, user_email FROM users'
         }
 
         const users = await pool.query(query)
@@ -30,7 +30,7 @@ const getUser = async (req, res) => {
     try {
 
         const query = {
-            text: 'SELECT UserID, UserName, UserEmail FROM users WHERE UserID = $1',
+            text: 'SELECT user_id, user_name, user_email FROM users WHERE user_id = $1',
             values: [req.params.id],
         }
 
@@ -58,7 +58,7 @@ const createUser = async (req, res) => {
     try {
     
         const query = {
-            text: 'INSERT INTO users (UserName, UserPassword, UserEmail) VALUES ($1, $2, $3) RETURNING UserID, UserName, UserEmail',
+            text: 'INSERT INTO users (UserName, UserPassword, UserEmail) VALUES ($1, $2, $3) RETURNING user_id, user_name, user_email',
             values: [req.body.UserName, req.body.UserPassword, req.body.UserEmail],
         }
 
@@ -82,7 +82,7 @@ const deleteUser = async (req, res) => {
     try {
 
         const query = {
-            text: 'DELETE FROM users WHERE userID = $1',
+            text: 'DELETE FROM users WHERE user_id = $1',
             values: [req.params.id]
         }
 

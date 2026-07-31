@@ -78,7 +78,7 @@ const deleteUrl = async (req, res) => {
     try {
 
         const query = {
-            text: 'DELETE FROM website WHERE websiteID = $1',
+            text: 'DELETE FROM website WHERE website_id = $1',
             values: [req.params.id]
         }
 

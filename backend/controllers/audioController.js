@@ -32,7 +32,7 @@ const getAudio = async (req, res) => {
     try {
 
         const query = {
-            text: 'SELECT * FROM audio WHERE AudioID = $1',
+            text: 'SELECT * FROM audio WHERE audio_id = $1',
             values: [req.params.id],
         }
 
@@ -107,7 +107,7 @@ const deleteAudio = async (req, res) => {
     try {
 
         const query = {
-            text: 'DELETE FROM audio WHERE AudioID = $1',
+            text: 'DELETE FROM audio WHERE audio_id = $1',
             values: [req.params.id]
         }
 
@@ -132,7 +132,7 @@ const verifyAudio = async (req, res) => {
     try {
 
         const query = {
-            text: 'SELECT * FROM audio'
+            text: 'SELECT audio_url FROM audio'
         }
 
         const audios = await pool.query(query)
@@ -141,36 +141,32 @@ const verifyAudio = async (req, res) => {
             return res.status(404).json({error: "Audio not found"});
         }
 
-        const collected_urls = new Array(audios.rowCount)
-
-        index = 0;
-        for (const audio of audios.rows) {
-            collected_urls[index] = audio.AudioURL;
-            index++;
-        }
+        const collected_urls = audios.rows.map(audio => audio.audio_url)
 
         const query2 = {
             "enrollment_urls": collected_urls,
             "test_url": req.body.TestURL
         }
 
-        const result = JSON.parse(sendAudio('http://localhost:8000/verify-speaker', query2))
+        const FastAPI_URL = process.env.FASTAPI_URL ?? "http://localhost:8000";
 
-        if (result === {} || result === NULL) {
+        const result = await sendAudio(`${FASTAPI_URL}/verify-speaker`, query2)
+
+        if (!result) {
             return res.status(400).json({error: "Error with api"});
         }
 
-        if (result.verified === true) {
-            return res.status(200).json({"verification": true});
+        if (result.verified) {
+            return res.status(200).json({verification: true});
         }
 
-        res.status(200).json({"verification": false});
+        return res.status(200).json({verification: false});
 
     } catch (err) {
         console.error(err);
 
         res.status(500).json({
-            error: "Failed to delete audio",
+            error: "Speaker verification failed",
             error_message: err.message,
         })
 
