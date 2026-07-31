@@ -4,10 +4,15 @@ import { urlRouter } from 'backend/routes/urlRoutes.js'
 import { userRouter } from 'backend/routes/userRoutes.js'
 
 import { initializeDatabase } from './db/init'
+import { config } from 'backend/db/config.js'
 
 import cors from 'cors'
+import path from "path"
+import dotenv from 'dotenv'
 
-const PORT = 8000
+dotenv.config({path: '.backend/.env'})
+
+const PORT = Number(config.APP_PORT) || 3000;
 
 const app = express()
 
@@ -18,15 +23,20 @@ app.use('/api', audioRouter)
 app.use('/api', urlRouter)
 app.use('/api', userRouter)
 
+app.get("/api", (req, res) => {
+    res.status(200).json({ message: "Server running" })
+})
+
 app.use((req, res) => {
     res.status(404).json({message: 'Endpoint not found'})
 })
+
 
 async function start() {
     try {
         await initializeDatabase();
 
-        app.listen(PORT, () => console.log('listening at 8000'))
+        app.listen(PORT, () => console.log(`Server is listening at port ${PORT}`))
 
     } catch (err) {
         console.error(err);
