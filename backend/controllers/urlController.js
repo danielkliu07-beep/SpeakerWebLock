@@ -109,7 +109,7 @@ const checkUrl = async (req, res) => {
         const websites = await pool.query(query)
 
         for (const website of websites.rows) {
-            if (req.params.WebsiteURL === website.WebsiteURL) {
+            if (req.body.WebsiteURL === website.WebsiteURL) {
                 return res.status(200).json({"check": true});
             }
         }
