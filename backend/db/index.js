@@ -10,7 +10,5 @@ const connection_information = {
 
 }
 
-console.log(connection_information)
-
 export const pool = new Pool(connection_information)
 
