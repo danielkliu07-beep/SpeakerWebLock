@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { getAudios, getAudio, addAudios, updateAudios, updateAudio, deleteAudios, deleteAudio, verifyAudio } from 'backend/controllers/audioController.js'
+import { getAudios, getAudio, addAudios, deleteAudios, deleteAudio, verifyAudio } from '../controllers/audioController.js'
 
 export const audioRouter = express.Router()
 

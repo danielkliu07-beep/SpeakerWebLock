@@ -1,6 +1,7 @@
-import { pool } from 'backend/db/index.js';
+import { pool } from './index.js';
 
 export async function initializeDatabase() {
+
 
     await pool.query(`
         CREATE TABLE IF NOT EXISTS audio (

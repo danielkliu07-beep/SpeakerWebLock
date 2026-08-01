@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { getUrls, addUrls, deleteUrls, deleteUrl, checkWebsite } from 'backend/controllers/urlController.js'
+import { getUrls, addUrls, deleteUrls, deleteUrl, checkUrl } from '../controllers/urlController.js'
 
 export const urlRouter = express.Router()
 
@@ -8,4 +8,4 @@ urlRouter.get('/url', getUrls)
 urlRouter.post('/url', addUrls)
 urlRouter.delete('/url', deleteUrls)
 urlRouter.delete('/url/:id', deleteUrl)
-urlRouter.post('/url/check', checkWebsite)
+urlRouter.post('/url/check', checkUrl)

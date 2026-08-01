@@ -1,5 +1,5 @@
-import { pool } from "../db"
-import { sendAudio } from "../utils/fetchaudio"
+import { pool } from "../db/index.js"
+import { sendAudio } from "../utils/fetchaudio.js"
 
 
 const getAudios = async (req, res) => {
@@ -173,5 +173,5 @@ const verifyAudio = async (req, res) => {
     }
 }
 
-export { getAudios, getAudio, addAudios, updateAudios, updateAudio, deleteAudios, deleteAudio, verifyAudio };
+export { getAudios, getAudio, addAudios, deleteAudios, deleteAudio, verifyAudio };
 

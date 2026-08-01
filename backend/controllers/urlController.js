@@ -1,3 +1,5 @@
+import { pool } from "../db/index.js"
+
 
 const getUrls = async (req, res) => {
 

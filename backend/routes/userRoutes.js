@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { getUsers, getUser, createUser, deleteUser } from 'backend/controllers/userController.js'
+import { getUsers, getUser, createUser, deleteUser } from '../controllers/userController.js'
 
 export const userRouter = express.Router()
 

@@ -1,16 +1,17 @@
 import express from 'express'
-import { audioRouter } from 'backend/routes/audioRoutes.js'
-import { urlRouter } from 'backend/routes/urlRoutes.js'
-import { userRouter } from 'backend/routes/userRoutes.js'
 
-import { initializeDatabase } from './db/init'
-import { config } from 'backend/db/config.js'
+import { audioRouter } from './routes/audioRoutes.js'
+import { urlRouter } from './routes/urlRoutes.js'
+import { userRouter } from './routes/userRoutes.js'
+
+import { initializeDatabase } from './db/init.js'
+import { config } from './db/config.js'
 
 import cors from 'cors'
 import path from "path"
 import dotenv from 'dotenv'
 
-dotenv.config({path: '.backend/.env'})
+dotenv.config({path: './env'})
 
 const PORT = Number(config.APP_PORT) || 3000;
 

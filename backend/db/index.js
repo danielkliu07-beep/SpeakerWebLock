@@ -1,5 +1,5 @@
 import { Pool } from 'pg'
-import { config } from 'backend/db/config.js'
+import { config } from './config.js'
 
 const connection_information = {
     user: config.DB_USER,
@@ -9,6 +9,8 @@ const connection_information = {
     database: config.DB_NAME
 
 }
+
+console.log(connection_information)
 
 export const pool = new Pool(connection_information)
 

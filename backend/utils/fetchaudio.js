@@ -1,4 +1,4 @@
-async function sendAudio(api_url, query) {
+export async function sendAudio(api_url, query) {
 
     const response = await fetch(api_url, {
         method: "POST",

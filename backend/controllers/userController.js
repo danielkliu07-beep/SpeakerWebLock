@@ -1,3 +1,5 @@
+import { pool } from "../db/index.js"
+
 
 const getUsers = async (req, res) => {
     
