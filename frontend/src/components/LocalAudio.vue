@@ -1,8 +1,8 @@
 <script setup>
 
     import {ref} from 'vue'
-
     import { returnAudio as record } from '@/utils/audioRecorder';
+    import { convertWebmToWav } from '@/utils/audioConverter'
 
     const recording = ref(false);
 
@@ -23,6 +23,18 @@
         } finally {
             recording.value = false;
         }
+    }
+
+    const convertAudio = async (audio) => {
+        
+        const wavBlob = await convertWebmToWav(
+            audio.audioBlob,
+            "input.webm",
+            "output.wav" 
+        )
+
+        return wavBlob;
+
     }
 
     const deleteAudio = (index) => {
@@ -52,6 +64,8 @@
     <li v-for="(audio, index) in localAudioList" v-bind:key = "index">
         <button @click = "audio.play()">Play audio {{ index + 1 }}</button>
         <button @click = "deleteAudio(index)">Delete audio {{ index + 1 }}</button>
+        <p>{{audio.audioUrl}}</p>
+        <p>{{ URL.convertObjectURL(convertAudio(audio)) }}</p>
     </li>
 
 
