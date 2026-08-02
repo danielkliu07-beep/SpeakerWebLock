@@ -1,6 +1,7 @@
 name: SpeakerWebLock
 
 #docker compose up --build -d
+#psql -h localhost -p 5432 -U myuser -d mydatabase 
 services:
   #PostgreSQL Service
   postgres:

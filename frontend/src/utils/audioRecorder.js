@@ -1,58 +1,49 @@
-export function initializeAudioRecorder(record, stop, onClipCreated) {
+const recordAudio = () =>
+  new Promise(async (resolve, reject) => {
 
-    const constraints = {
-        audio: true
-    };
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      const audioChunks = [];
 
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices
-            .getUserMedia(constraints)
-            .then((stream) => {
-                const mediaRecorder = new MediaRecorder(stream);
-                
-                record.onclick = () => {
-                    if (mediaRecorder.state === "inactive") {
-                        mediaRecorder.start()
-                        record.style.background = "red"
-                        record.style.color = "black";
-                    }
-                };
+      mediaRecorder.addEventListener("dataavailable", event => {
+        audioChunks.push(event.data);
+      });
 
-                let chunks = [];
+      const start = () => mediaRecorder.start();
 
-                mediaRecorder.ondataavailable = (e) => {
-                    chunks.push(e.data);
-                };
+      const stop = () =>
+        new Promise(resolve => {
+          mediaRecorder.addEventListener("stop", () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            const play = () => audio.play();
+            stream.getTracks().forEach((track) => track.stop());
+            resolve({ audioBlob, audioUrl, play });
+          });
 
-                stop.onclick = () => {
-                    if (mediaRecorder.state === "recording") {
-                        mediaRecorder.stop();
-                        record.style.background = "";
-                        record.style.color = "";
-                    }
-                };
-
-                mediaRecorder.onstop = (e) => {
-                    
-                    const blob = new Blob(chunks, {type: "audio/ogg; codecs=opus"});
-                    chunks = [];
-                    const audioURL = window.URL.createObjectURL(blob);
-                    
-                    onClipCreated({
-                        url: audioURL
-                    });
-
-
-                };
-
-            })
-        .catch(function (err) {
-            console.log(err.name, err.message)
+          mediaRecorder.stop();
         });
-    } else {
-        console.log("getUserMedia not supported on your browser!");
+
+      resolve({ start, stop });
+    } catch (err) {
+      reject(err);
     }
+  });
 
-    
+const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
-}
+const handleAction = async () => {
+
+  const recorder = await recordAudio();
+
+  recorder.start();
+
+  await sleep(3000);
+
+  return await recorder.stop();
+
+};
+
+export { recordAudio, handleAction }

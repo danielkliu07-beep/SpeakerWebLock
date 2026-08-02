@@ -1,14 +1,15 @@
 <script setup>
 
-    import Recorder from '@/components/Recording.vue'
+    import LocalAudio from '@/components/LocalAudio.vue'
+    //import StoredAudio from '@/components/StoredAudio.vue'
+    //import UrlList from '@/components/UrlList.vue'
 
-    const globalAudioList = ref([])
 
 </script>
 
 <template>
 
-    <Recorder/>
+    <LocalAudio/>
 
 
 </template>

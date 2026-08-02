@@ -14,4 +14,5 @@ POSTGRES_USER - DB_USER
 POSTGRES_PASSWORD - DB_PASSWORD
 POSTGRES_DB - DB_NAME
 
+
 ?. In order to run this, run 'docker compose up --build -d' in your terminal, 'npm start' in the backend folder, and 
