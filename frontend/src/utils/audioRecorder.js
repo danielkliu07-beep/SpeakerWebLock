@@ -34,7 +34,7 @@ const recordAudio = () =>
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
-const handleAction = async () => {
+const returnAudio = async () => {
 
   const recorder = await recordAudio();
 
@@ -46,4 +46,4 @@ const handleAction = async () => {
 
 };
 
-export { recordAudio, handleAction }
+export { recordAudio, returnAudio }
