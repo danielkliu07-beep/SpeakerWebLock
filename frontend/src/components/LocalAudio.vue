@@ -8,38 +8,46 @@
 
     const localAudioList = ref([])
 
+    const convertAudio = async (audio) => {
+    
+        try {
+            const wavBlob = await convertWebmToWav(
+                audio.audioBlob,
+                "input.webm",
+                "output.wav" 
+            )
+
+            // audio = { audioBlob, audioUrl, play, wavBlob, wavUrl };
+
+            audio.wavBlob = wavBlob;
+            audio.wavUrl = URL.createObjectURL(wavBlob)
+
+            return audio;
+            
+        } catch (err) {
+            console.error(err)
+        }
+
+    }
+
+
     const recordAudio = async () => {
 
-        // audio = {
-        // audioBlob,
-        // audioUrl,
-        // play
-        // };
+        // audio = { audioBlob, audioUrl, play };
 
         recording.value = true;
         try {
-            const audio = await record();
+            const audio = await convertAudio(await record())
+
             localAudioList.value.push(audio)
         } finally {
             recording.value = false;
         }
     }
-
-    const convertAudio = async (audio) => {
-        
-        const wavBlob = await convertWebmToWav(
-            audio.audioBlob,
-            "input.webm",
-            "output.wav" 
-        )
-
-        return wavBlob;
-
-    }
-
     const deleteAudio = (index) => {
 
-        URL.revokeObjectURL(localAudioList.value[index].audioURL);
+        URL.revokeObjectURL(localAudioList.value[index].audioUrl);
+        URL.revokeObjectURL(localAudioList.value[index].wavUrl);
 
         localAudioList.value.splice(index, 1)
         
@@ -65,7 +73,7 @@
         <button @click = "audio.play()">Play audio {{ index + 1 }}</button>
         <button @click = "deleteAudio(index)">Delete audio {{ index + 1 }}</button>
         <p>{{audio.audioUrl}}</p>
-        <p>{{ URL.convertObjectURL(convertAudio(audio)) }}</p>
+        <p>{{audio.wavUrl}}</p>
     </li>
 
 
