@@ -6,23 +6,9 @@
 
 <template>
 
-    <h1>Speaker Recognition Web-Lock</h1>
-
-    <nav>
-        <router-link v-bind:to="{ name: 'Configuration' }">
-            <button>Configuration</button>
-        </router-link>
-
-        <router-link v-bind:to="{ name: 'Start' }">
-            <button>Login</button>
-        </router-link>
-
-        <router-link v-bind:to="{ name: 'Start' }">
-            <button>Register</button>
-        </router-link>
-    </nav>
-
-    <router-view/>
+    <main>
+        <router-view/>
+    </main>
     
 
 

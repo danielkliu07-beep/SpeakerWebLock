@@ -1,30 +1,36 @@
     import { createWebHistory, createRouter } from 'vue-router';
 
     import ConfigurationView from '@/components/configuration/ConfigurationView.vue';
-    import StartView from '@/components/home/StartView.vue'
     import LoginView from '@/components/login/LoginView.vue'
     import RegisterView from '@/components/register/RegisterView.vue'
+    import HomeView from '@/components/home/HomeView.vue'
+    import StartView from '@/components/start/StartView.vue'
 
     const routes = [
+        {
+            path: '/',
+            name: 'Start',
+            component: StartView,
+        },
         { 
             path: '/configuration', 
             name: 'Configuration',
             component: ConfigurationView,
         },
-        { 
-            path: '/', 
-            name: 'Start',
-            component: StartView, 
-        },
         {
             path: '/login',
             name: 'Login',
-            component: LoginView
+            component: LoginView,
         },
         {
             path: '/register',
             name: 'Register',
-            component: RegisterView
+            component: RegisterView,
+        },
+        {
+            path: '/home',
+            name: 'HomePage',
+            component: HomeView,
         }
     ]
 
