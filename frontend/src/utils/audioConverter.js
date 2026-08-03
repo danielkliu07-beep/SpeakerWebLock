@@ -19,4 +19,13 @@ async function convertWebmToWav(webmBlob, inputPath, outputPath) {
 
 }
 
-export { convertWebmToWav }
+const blobToBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+    });
+};
+
+export { convertWebmToWav, blobToBase64 }
