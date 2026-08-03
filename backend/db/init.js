@@ -6,14 +6,14 @@ export async function initializeDatabase() {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS audio (
             audio_id SERIAL PRIMARY KEY,
-            audio_url VARCHAR(255) NOT NULL 
+            audio_url TEXT NOT NULL 
         );    
     `);
 
     await pool.query(`
         CREATE TABLE IF NOT EXISTS website (
             website_id SERIAL PRIMARY KEY,
-            website_url VARCHAR(255) NOT NULL 
+            website_url TEXT NOT NULL 
         );    
     `);
 

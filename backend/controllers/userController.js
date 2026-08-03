@@ -60,7 +60,7 @@ const createUser = async (req, res) => {
     try {
     
         const query = {
-            text: 'INSERT INTO users (UserName, UserPassword, UserEmail) VALUES ($1, $2, $3) RETURNING user_id, user_name, user_email',
+            text: 'INSERT INTO users (user_name, user_password, user_email) VALUES ($1, $2, $3) RETURNING user_id, user_name, user_email',
             values: [req.body.UserName, req.body.UserPassword, req.body.UserEmail],
         }
 

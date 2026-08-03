@@ -60,7 +60,7 @@ const addAudios = async (req, res) => {
     try {
 
         const query = {
-            text: 'INSERT INTO audio (AudioURL) VALUES ($1) RETURNING *',
+            text: 'INSERT INTO audio (audio_url) VALUES ($1) RETURNING *',
             values: [req.body.AudioURL],
         }
 
