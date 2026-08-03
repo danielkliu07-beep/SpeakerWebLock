@@ -6,10 +6,20 @@
 
 <template>
 
-    <p>Current route path: {{ $route.fullPath }}</p>
+    <h1>Speaker Recognition Web-Lock</h1>
+
     <nav>
-        <router-link v-bind:to="{ name: 'Configuration' }">Go to Configuration</router-link>
-        <router-link v-bind:to="{ name: 'Start' }">Go to Login</router-link>
+        <router-link v-bind:to="{ name: 'Configuration' }">
+            <button>Configuration</button>
+        </router-link>
+
+        <router-link v-bind:to="{ name: 'Start' }">
+            <button>Login</button>
+        </router-link>
+
+        <router-link v-bind:to="{ name: 'Start' }">
+            <button>Register</button>
+        </router-link>
     </nav>
 
     <router-view/>
