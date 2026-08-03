@@ -26,7 +26,7 @@
         try {
 
             const query = {
-                WebsiteUrl: url.value
+                WebsiteURL: url.value
             }
 
             const response = await postRequest(API_URL, query)
