@@ -29,9 +29,11 @@
                 WebsiteURL: url.value
             }
 
-            const response = await postRequest(API_URL, query)
+            await postRequest(API_URL, query)
+
             url.value = ''
             await loadUrl()
+            
         } catch (err) {
             console.error(err)
         }
@@ -89,6 +91,7 @@
         <div class = "buttons">
             <button @click = "addUrl()">Create</button>
             <button @click = "deleteAllUrl()">Delete All Urls</button>
+            <button>Check if in database</button>
         </div>
 
     </div>

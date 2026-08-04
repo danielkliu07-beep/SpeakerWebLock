@@ -66,7 +66,7 @@
                 AudioURL: base64AudioUrl,
             }
 
-            const response = await postRequest(API_URL, query)
+            await postRequest(API_URL, query)
         }
     }
 

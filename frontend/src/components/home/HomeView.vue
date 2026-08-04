@@ -1,9 +1,14 @@
 <script setup>
 
+import { goToStart } from '@/utils/navigation';
+
 
 </script>
 
 <template>
+
+    <button @click = "goToStart()">Log out</button>
+
     <h1>Home Page</h1>
 
     <nav>

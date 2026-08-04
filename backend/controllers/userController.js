@@ -106,11 +106,8 @@ const deleteUser = async (req, res) => {
 
 const checkUser = async (req, res) => {
 
-    console.log("checkUser function initiated")
-
     try {
 
-        console.log("checkUser 1")
 
         const query = {
             text: `SELECT * FROM users WHERE user_name = $1 AND user_password = $2`,
@@ -118,8 +115,6 @@ const checkUser = async (req, res) => {
         };
 
         const result = await pool.query(query);
-
-        console.log("checkUser 2")
 
         res.status(200).json({
             check: result.rows.length > 0,

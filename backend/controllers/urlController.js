@@ -109,22 +109,16 @@ const checkUrl = async (req, res) => {
     try {
 
         const query = {
-            text: 'SELECT * FROM website'
-        }
+            text: `SELECT * FROM website WHERE website_url = $1`,
+            values: [req.body.WebsiteURL],
+        };
 
-        const websites = await pool.query(query)
+        const websites = await pool.query(query);
 
-        if (websites.rows.length === 0) {
-            return res.status(404).json({error: "Website not found"});
-        }
 
-        for (const website of websites.rows) {
-            if (req.body.WebsiteURL === website.website_url) {
-                return res.status(200).json({"check": true});
-            }
-        }
-
-        res.status(200).json({"check": false});
+        res.status(200).json({
+            check: websites.rows.length > 0,
+        });
 
     } catch (err) {
         console.error(err);
