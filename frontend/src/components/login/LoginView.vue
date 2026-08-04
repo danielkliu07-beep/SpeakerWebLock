@@ -3,10 +3,14 @@
     import { ref } from 'vue'
     import { router } from '@/router/router'
 
+    const API_URL = 'http://localhost:3000/api/user'
     const username = ref('')
     const password = ref('')
 
+
     async function login() {
+
+
         router.push({name: 'HomePage'})
     }
 

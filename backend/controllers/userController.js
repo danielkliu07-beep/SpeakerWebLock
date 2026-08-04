@@ -104,5 +104,34 @@ const deleteUser = async (req, res) => {
 
 }
 
-export { getUsers, getUser, createUser, deleteUser };
+const checkUser = async (req, res) => {
+
+    try {
+
+        const query = {
+            text: 'SELECT * FROM users'
+        }
+
+        const users = await pool.query(query)
+
+        for (const user of users.rows) {
+            if (req.body.UserName === user.user_name && req.body.UserPassword === user.user_password) {
+                return res.status(200).json({"check": true});
+            }
+        }
+
+        res.status(200).json({"check": false});
+
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            error: "Failed to check if the user is in the database",
+            error_message: err.message,
+        })
+    }
+
+}
+
+export { getUsers, getUser, createUser, deleteUser, checkUser };
 
