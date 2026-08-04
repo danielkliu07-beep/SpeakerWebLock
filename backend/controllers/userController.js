@@ -109,18 +109,15 @@ const checkUser = async (req, res) => {
     try {
 
         const query = {
-            text: 'SELECT * FROM users'
-        }
+            text: `SELECT * FROM users WHERE user_name = $1 AND user_password = $2`,
+            values: [req.body.UserName, req.body.UserPassword],
+        };
 
-        const users = await pool.query(query)
+        const result = await pool.query(query);
 
-        for (const user of users.rows) {
-            if (req.body.UserName === user.user_name && req.body.UserPassword === user.user_password) {
-                return res.status(200).json({"check": true});
-            }
-        }
-
-        res.status(200).json({"check": false});
+        res.status(200).json({
+            check: result.rows.length > 0,
+        });
 
     } catch (err) {
         console.error(err);
