@@ -29,7 +29,7 @@
             password.value = ''
             email.value = ''
 
-            if (response.ok) {
+            if (response) {
                 goToStart()
             }
 
@@ -42,6 +42,8 @@
 </script>
 
 <template>
+
+    <button @click = "goToStart()">Back to start</button>
     
     <h1>Register</h1>
 

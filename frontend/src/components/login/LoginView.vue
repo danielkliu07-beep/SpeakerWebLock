@@ -27,7 +27,7 @@
             username.value = ''
             password.value = ''
 
-            if (response.ok) {
+            if (response) {
                 goToHomePage()
             }
 
@@ -40,6 +40,8 @@
 </script>
 
 <template>
+
+    <button @click = "goToStart()">Back to start</button>
 
     <h1>Log in</h1>
 
