@@ -11,9 +11,10 @@ const getUrls = async (req, res) => {
 
         const websites = await pool.query(query)
 
-        // if (websites.rows.length === 0) {
-        //     return res.status(404).json({error: "Website not found"});
-        // }
+        if (websites.rows.length === 0) {
+            return res.status(404).json({error: "Website not found"});
+        }
+
 
         res.status(200).json(websites.rows);
     } catch (err) {
@@ -36,7 +37,10 @@ const addUrls = async (req, res) => {
         }
 
         const websites = await pool.query(query)
-        
+
+        if (websites.rows.length === 0) {
+            return res.status(404).json({error: "Website not found"});
+        }
 
         res.status(200).json(websites.rows[0])
     
@@ -109,6 +113,10 @@ const checkUrl = async (req, res) => {
         }
 
         const websites = await pool.query(query)
+
+        if (websites.rows.length === 0) {
+            return res.status(404).json({error: "Website not found"});
+        }
 
         for (const website of websites.rows) {
             if (req.body.WebsiteURL === website.website_url) {

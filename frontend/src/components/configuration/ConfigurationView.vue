@@ -4,18 +4,16 @@
     import StoredAudio from '@/components/configuration/StoredAudio.vue'
     import UrlList from '@/components/configuration/UrlList.vue'
 
-    import { router } from '@/router/router'
+    import { reversePage, goToStart } from '@/utils/navigation';
 
 
-    function reverse() {
-        router.go(-1)
-    }
 
 </script>
 
 <template>
 
-    <button @click = "reverse()">Go back</button>
+    <button @click = "reversePage()">Go back</button>
+    <button @click = "goToStart()">Log out</button>
 
     <h1>Configuration</h1>
 

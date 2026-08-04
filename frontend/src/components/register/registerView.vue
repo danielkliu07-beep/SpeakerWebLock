@@ -1,7 +1,8 @@
 <script setup>
 
     import { ref } from 'vue'
-    import { router } from '@/router/router'
+    import { goToStart } from '@/utils/navigation'
+    import { getRequest, postRequest, deleteRequest } from '@/utils/fetchRequest'
 
     const API_URL = 'http://localhost:3000/api/user'
     const username = ref('')
@@ -29,7 +30,7 @@
             email.value = ''
 
             if (response.ok) {
-                router.push({name: 'HomePage'})
+                goToStart()
             }
 
             
