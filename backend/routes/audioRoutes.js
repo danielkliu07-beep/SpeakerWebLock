@@ -6,8 +6,8 @@ export const audioRouter = express.Router()
 
 //You don't need to have /api/audio because app.use('/api', audioRouter) specified it
 audioRouter.get('/audio', getAudios)
-audioRouter.get('/audio/:id', getAudio)
 audioRouter.post('/audio', addAudios)
 audioRouter.delete('/audio', deleteAudios)
-audioRouter.delete('/audio/:id', deleteAudio)
 audioRouter.get('/audio/verify', verifyAudio)
+audioRouter.get('/audio/:id', getAudio)
+audioRouter.delete('/audio/:id', deleteAudio)

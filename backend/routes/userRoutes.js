@@ -5,7 +5,7 @@ import { getUsers, getUser, createUser, deleteUser, checkUser } from '../control
 export const userRouter = express.Router()
 
 userRouter.get('/user', getUsers)
-userRouter.get('/user/:id', getUser)
 userRouter.post('/user', createUser)
-userRouter.delete('/user/:id', deleteUser)
 userRouter.post('/user/check', checkUser)
+userRouter.get('/user/:id', getUser)
+userRouter.delete('/user/:id', deleteUser)
