@@ -11,35 +11,24 @@
 
     async function login() {
 
-        console.log("Login1")
-
         if (!username.value.trim() || !password.value.trim()) {
-            console.log("Login2")
             return
         }
 
-        console.log("Login3")
-
         try {
-
-            console.log("Login3.5")
 
             const query = {
                 UserName: username.value,
                 UserPassword: password.value,
 
             }
-
-            console.log("Login3.75")
             
             const response = await postRequest(API_URL, query)
             username.value = ''
             password.value = ''
 
-            console.log("Login4")
 
             if (response.check) {
-                console.log("Login5")
                 goToHomePage()
             } else {
                 console.log("Invalid User or Password")

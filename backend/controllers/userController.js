@@ -108,7 +108,6 @@ const checkUser = async (req, res) => {
 
     try {
 
-
         const query = {
             text: `SELECT * FROM users WHERE user_name = $1 AND user_password = $2`,
             values: [req.body.UserName, req.body.UserPassword],
@@ -119,6 +118,7 @@ const checkUser = async (req, res) => {
         res.status(200).json({
             check: result.rows.length > 0,
         });
+
 
     } catch (err) {
         console.error(err);
