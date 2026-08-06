@@ -1,6 +1,11 @@
 {
     "manifest_version": 3,
     "version": "1.0",
-    "name": "Speaker web lock"
+    "name": "Speaker web lock",
+    "description": "Checks if the following website should be speaker authenticated or not",
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["activeTab", "scripting", "tabs"]
 
 }

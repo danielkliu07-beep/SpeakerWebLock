@@ -1,0 +1,3 @@
+const websiteList = [];
+
+export { websiteList };
